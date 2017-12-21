@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 var explosiveBonus = new mongoose.Schema({
-	tile: { type: int }
+	tile: { type: Number }
 });
 
 // Methods

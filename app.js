@@ -1,4 +1,4 @@
-var express = require('express');
+
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -10,6 +10,7 @@ var drones = require('./routes/drones');
 var app = express();
 
 var db = require('./db');
+
 
 
 app.use(logger('dev'));
