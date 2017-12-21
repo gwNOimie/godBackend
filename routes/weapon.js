@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var droneModel = require('../models/drone')
+var weaponModel = require('../models/weapon')
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   // utiliser 
-  droneModel.getList().then(result => {
+  weaponModel.getList().then(result => {
     res.send(result);
   })
 });

@@ -1,3 +1,6 @@
+//imports...
+var mongoose = require('mongoose');
+
 var drone = new mongoose.Schema({
 	life : {type : int},
 	actionPoints : {type : int},
@@ -7,3 +10,8 @@ var drone = new mongoose.Schema({
 	description : {type : String},
 	level : {type : int}
 });
+
+// Methods
+var getList = () => {
+
+}

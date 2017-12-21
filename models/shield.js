@@ -1,8 +1,9 @@
 //imports...
 var mongoose = require('mongoose');
 
-var explosiveBonus = new mongoose.Schema({
-	tile: { type: int }
+var shield = new mongoose.Schema({
+	capactity: { type: int },
+	block: { type: int }
 });
 
 // Methods

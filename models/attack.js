@@ -1,3 +1,6 @@
+//imports...
+var mongoose = require('mongoose');
+
 var attak = new mongoose.Schema({
 	damage: { type: int },
 	ammo: { type: int },
@@ -6,3 +9,8 @@ var attak = new mongoose.Schema({
 	quickFire: { type: boolean },
 	source: { type: String }
 });
+
+// Methods
+var getList = () => {
+
+}

@@ -1,3 +1,6 @@
+//imports...
+var mongoose = require('mongoose');
+
 var game = new mongoose.Schema({
 	turn: { type: int },
 	firstPlayer: { type: String },
@@ -7,3 +10,9 @@ var game = new mongoose.Schema({
 	numberTurn: { type: int }
 
 });
+
+
+// Methods
+var getList = () => {
+
+}
