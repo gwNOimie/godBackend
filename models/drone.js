@@ -12,17 +12,39 @@ const droneSchema = new mongoose.Schema({
 	level: { type: Number }
 });
 
+const Drones = mongoose.model('drone', droneSchema);
+
 module.exports = {
 	getList: () => {
 		return new Promise((resolve, reject) => {
-			console.log('getList');
-			resolve('getList')
+			Drones.find((error, results) => {
+				if (error) {
+					console.log(error);
+					reject(error);
+				}
+				const values = {};
+				for (const key in results) {
+					var val = results[key];
+					values[val["_id"]] = val["value"]
+				}
+				resolve(values);
+			})
 		})
 	},
-	getItem: () => {
+	getItem: (id) => {
 		return new Promise((resolve, reject) => {
-			console.log('getItem');
-			resolve('getItem')
+			Drones.findById((error, result) => {
+				if (error) {
+					console.log(error);
+					reject(error);
+				}
+				// const values = {};
+				// for (const key in result) {
+				// 	var val = result[key];
+				// 	values[val["_id"]] = val["value"]
+				// }
+				resolve(rsult);
+			})
 		})
 	},
 	addItem: () => {
