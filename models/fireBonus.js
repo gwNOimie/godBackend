@@ -2,8 +2,8 @@
 var mongoose = require('mongoose');
 
 var fireBonus = new mongoose.Schema({
-	damage: { type: int },
-	numberTurn: { type: int }
+	damage: { type: Number },
+	numberTurn: { type: Number }
 });
 
 // Methods

@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 var engine = new mongoose.Schema({
-	actionPoints: { type: int }
+	actionPoints: { type: Number }
 
 });
 
