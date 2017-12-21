@@ -8,6 +8,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+var mongodb = require('./db');
 
 var MongoClient = require('mongodb').MongoClient, assert = require('assert');
 var mongoose = require('mongoose');
@@ -146,5 +147,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.send('error');
 });
+
+mongodb.connectDB();
 
 module.exports = app;
