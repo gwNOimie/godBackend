@@ -1,7 +1,7 @@
 //imports...
 var mongoose = require('mongoose');
 
-var attak = new mongoose.Schema({
+var attack = new mongoose.Schema({
 	damage: { type: int },
 	ammo: { type: int },
 	cooldown: { type: int },
