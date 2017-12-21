@@ -4,7 +4,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
+// var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
@@ -33,15 +33,7 @@ mongoose.connect('mongodb://localhost/', function (err) {
 });
 
 // Model 
-var player = new mongoose.Schema({
-	pseudo: { type: String, match: /^[a-zA-Z0-9-_]+$/ },
-	password: { type: String, match: /^[a-zA-Z0-9-_]+$/ },
-	email: { type: String, match: /^[a-zA-Z0-9-_]+$/ },
-	signUpDate: { type: Date, default: Date.now },
-	gold: { type: int },
-	totalGold: { type: int }
 
-});
 
 var game = new mongoose.Schema({
 	turn: { type: int },
@@ -126,7 +118,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+// app.use('/', index);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
