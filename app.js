@@ -35,7 +35,7 @@ mongoose.connect('mongodb://localhost/', function(err){
 // Model 
 var player = new mongoose.Schema({
 			pseudo : {type : String, match :/^[a-zA-Z0-9-_]+$/},
-			password {type : String, match :/^[a-zA-Z0-9-_]+$/},
+			password : {type : String, match :/^[a-zA-Z0-9-_]+$/},
 			email : {type : String, match :/^[a-zA-Z0-9-_]+$/},
 			signUpDate : {type : Date, default : Date.now},
 			gold : {type : int},
@@ -45,7 +45,7 @@ var player = new mongoose.Schema({
 
 var game = new mongoose.Schema({
 			turn : {type : int},
-			firstPlayer {type : String},
+			firstPlayer : {type : String},
 			wonPlayer : {type : String},
 			startTime : {type : Date, default : Date.now},
 			endTime : {type : Date, default : Date.now},
@@ -90,17 +90,17 @@ var propeller = new mongoose.Schema({
 	speed : {type : int}
 });
 
-var wearpn = new mongoose.Schema({
+var weapon = new mongoose.Schema({
 	isPrimary : {type : boolean}
 });
 
-var attak = new mongoose.Schema({
+var attack = new mongoose.Schema({
 	damage : {type : int},
 	ammo : {type : int },
 	cooldown : {type : int},
 	aim : {type : int},
 	quickFire : {type : boolean},
-	source : {type String}
+	source : {type : String}
 });
 
 var fireBonus = new mongoose.Schema({
