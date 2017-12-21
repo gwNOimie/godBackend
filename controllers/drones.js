@@ -10,7 +10,7 @@ module.exports = {
     })
   },
   getItem: (req, res, next) => {
-    droneModel.getItem().then((result) => {
+    droneModel.getItem(req.params.id, req.body).then((result) => {
       res.send(result)
     }).catch((error) => {
       console.log(error);
@@ -18,7 +18,7 @@ module.exports = {
     })
   },
   addItem: (req, res, next) => {
-    droneModel.addItem().then((result) => {
+    droneModel.addItem(req.body).then((result) => {
       res.send(result)
     }).catch((error) => {
       console.log(error);
@@ -26,7 +26,7 @@ module.exports = {
     })
   },
   updateItem: (req, res, next) => {
-    droneModel.updateItem().then((result) => {
+    droneModel.updateItem(req.body).then((result) => {
       res.send(result)
     }).catch((error) => {
       console.log(error);
@@ -34,7 +34,7 @@ module.exports = {
     })
   },
   deleteItem: (req, res, next) => {
-    droneModel.deleteItem().then((result) => {
+    droneModel.deleteItem(req.body).then((result) => {
       res.send(result)
     }).catch((error) => {
       console.log(error);
