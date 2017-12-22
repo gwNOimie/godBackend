@@ -12,57 +12,69 @@ const droneSchema = new mongoose.Schema({
 	level: { type: Number }
 });
 
-const Drones = mongoose.model('drone', droneSchema);
+const DroneModel = mongoose.model('drone', droneSchema);
 
 module.exports = {
 	getList: () => {
 		return new Promise((resolve, reject) => {
-			Drones.find((error, results) => {
+			DroneModel.find((error, results) => {
 				if (error) {
 					console.log(error);
 					reject(error);
 				}
-				const values = {};
-				for (const key in results) {
-					var val = results[key];
-					values[val["_id"]] = val["value"]
-				}
-				resolve(values);
+				console.log(results);
+				resolve(results);
 			})
 		})
 	},
 	getItem: (id) => {
 		return new Promise((resolve, reject) => {
-			Drones.findById((error, result) => {
+			DroneModel.findById(id, (error, result) => {
 				if (error) {
 					console.log(error);
 					reject(error);
 				}
-				// const values = {};
-				// for (const key in result) {
-				// 	var val = result[key];
-				// 	values[val["_id"]] = val["value"]
-				// }
-				resolve(rsult);
+				console.log(result)
+				resolve(result);
 			})
 		})
 	},
-	addItem: () => {
+	addItem: (object) => {
 		return new Promise((resolve, reject) => {
-			console.log('addItem');
-			resolve('addItem')
+			const newDrone = new DroneModel(object);
+			newDrone.save((error, result) => {
+				if (error) {
+					console.log(error);
+					reject(error);
+				}
+				console.log(result)
+				resolve(result);
+			})
 		})
 	},
-	updateItem: () => {
+	updateItem: (id, object) => {
+		delete object._id;
 		return new Promise((resolve, reject) => {
-			console.log('updateItem');
-			resolve('updateI')
+			DroneModel.findByIdAndUpdate(id, object, (error, result) => {
+				if (error) {
+					console.log(error);
+					reject(error);
+				}
+				console.log(result)
+				resolve(result);
+			});
 		})
 	},
-	deleteItem: () => {
+	deleteItem: (id) => {
 		return new Promise((resolve, reject) => {
-			console.log('deleteItem');
-			resolve('deleteI')
+			DroneModel.findByIdAndRemove(id, (error, result) => {
+				if (error) {
+					console.log(error);
+					reject(error);
+				}
+				console.log(result)
+				resolve(result);
+			});
 		})
 	}
 }
