@@ -1,62 +1,73 @@
 //imports...
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/godDatabase', { useMongoClient: true });
+mongoose.Promise = global.Promise;
 
 // model
 var users = new mongoose.Schema({
-  pseudo: { type: String, match: /^[a-zA-Z0-9-_]+$/ },
-  password: { type: String, match: /^[a-zA-Z0-9-_]+$/ },
-  email: { type: String, match: /^[a-zA-Z0-9-_]+$/ },
+  pseudo: { type: String }, //match: /^[a-zA-Z0-9-_]+$/
+  password: { type: String }, //match: /^[a-zA-Z0-9-_]+$/
+  email: { type: String }, //match: /^[a-zA-Z0-9-_]+$/
   signUpDate: { type: Date, default: Date.now },
   gold: { type: Number },
   totalGold: { type: Number }
 
 });
+var User = mongoose.model('users',users);
 
-var Users = mongoose.model('users', users);
-
-// Methods
-var getList = () => {
-  Users.find().pretty;
+module.exports = {
+	getList: () => {
+		return new Promise((resolve, reject) => {
+			console.log('getList');
+			resolve(User.find({}, {"pseudo":1, "email":1, "gold":1, "totalGold":1, }))
+		})
+	},
+	getItemById: (id) => {
+		console.log('getItemById : ' + id);
+		return new Promise((resolve, reject) => {			
+			resolve(User.find({"_id": id}))
+		})
+	},
+	getItemByName: (name) => {
+		console.log('getItemByName : ' + name);
+		return new Promise((resolve, reject) => {			
+			resolve(User.find({"pseudo": name}))
+		})
+	},
+	getItemByMail: (email) => {
+		console.log('getItemByMail : ' + email);
+		return new Promise((resolve, reject) => {			
+			resolve(User.find({"email": email}))
+		})
+	},
+	addItem: (item) => {
+		return new Promise((resolve, reject) => {
+			console.log('addItem');
+			item.signUpDate = new Date();
+			item.gold = 0;
+			var user = new User(item);
+			
+			user.save(item, function(err, result) {
+				if (err) {
+					reject(err)
+				};
+				resolve(result)
+			})
+			
+		})
+	},
+	updateItem: () => {
+		return new Promise((resolve, reject) => {
+			console.log('updateItem');
+			resolve('updateI')
+		})
+	},
+	deleteItem: (id) => {
+		return new Promise((resolve, reject) => {
+			console.log('deleteItem' + id);
+			resolve(User.find({"email": id}).remove().exec())
+		})
+	}
 }
 
-var getItem = (res) => {
-
-  //db.restaurants.find({"name": sName}).pretty
-
-  Users.find({ _id: sName }, function (err, result) {
-    if (err) {
-      console.log(err);
-      res.send('database error');
-      return
-    }
-    var values = {};
-    for (var i in result) {
-      var val = result[i];
-      values[val["_id"]] = val["value"]
-    }
-    res.render('index', { title: 'Geo', values: values });
-  });
-}
-
-var addItem = (res) => {
-
-  Users.post(function (req, res) {
-    // Nous utilisons le schéma Piscine
-    var user = new Users();
-    // Nous récupérons les données reçues pour les ajouter à l'objet Piscine
-    user.pseudo = req.body.pseudo;
-    user.password = req.body.password;
-    user.email = req.body.email;
-    user.signUpDate = req.body.signUpDate;
-    user.gold = req.body.gold;
-    user.totalGold = req.body.totalGold;
-    // Nous stockons l'objet en base
-    user.save(function (err) {
-      if (err) {
-        res.send(err);
-      }
-      res.send({ message: 'Bravo,' + user.pseudo + ' est maintenant stockée en base de données' });
-    })
-  })
-}
 

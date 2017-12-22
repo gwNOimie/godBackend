@@ -2,8 +2,8 @@
 var mongoose = require('mongoose');
 
 var shield = new mongoose.Schema({
-	capactity: { type: int },
-	block: { type: int }
+	capactity: { type: Number },
+	block: { type: Number }
 });
 
 // Methods

@@ -11,8 +11,12 @@
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "debug": "~2.6.9",
-    "express": "^4.15.5",
+    "express": "^4.16.2",
+    "ipaddr.js": "^1.5.4",
+    "mime": "^2.0.3",
     "mongoose": "^4.13.7",
-    "morgan": "^1.9.0"
+    "morgan": "^1.9.0",
+    "nodemon": "^1.14.1",
+    "qs": "^6.5.1"
   }
 }

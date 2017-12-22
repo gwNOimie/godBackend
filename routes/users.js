@@ -1,20 +1,13 @@
-var express = require('express');
-var router = express.Router();
-var usersModel = require('../models/users')
+const express = require('express');
+const router = express.Router();
+const usersController = require('../controllers/users');
 
-/* GET users listing. */
-router.get('/user', function (req, res, next) {
-  // utiliser 
-  usersModel.getList().then(result => {
-    res.send(result);
-  })
-
-});
-
-router.post('/add_user', function(req, res, next) {
-	usersModel.addItem().then(result => {
-		res.send(result);
-	})
-});
+router.get('/', usersController.getList);
+router.get('/id/:id', usersController.getItemById);
+router.get('/pseudo/:pseudo', usersController.getItemByName);
+router.get('/email/:email', usersController.getItemByMail);
+router.post('/', usersController.addItem);
+router.post('/:id', usersController.updateItem);
+router.delete('/:id', usersController.deleteItem);
 
 module.exports = router;
