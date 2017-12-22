@@ -34,6 +34,7 @@ module.exports = {
     })
   },
   deleteItem: (req, res, next) => {
+    
     droneModel.deleteItem(req.body).then((result) => {
       res.send(result)
     }).catch((error) => {
