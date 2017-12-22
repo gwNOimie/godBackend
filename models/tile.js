@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 var tile = new mongoose.Schema({
-	isEmpty: { type: boolean },
+	isEmpty: { type: Boolean },
 	imageBackground: { type: String }
 });
 

@@ -6,7 +6,7 @@ var attak = new mongoose.Schema({
 	ammo: { type: Number },
 	cooldown: { type: Number },
 	aim: { type: Number },
-	quickFire: { type: boolean },
+	quickFire: { type: Boolean },
 	source: { type: String }
 });
 
