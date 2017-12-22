@@ -22,6 +22,16 @@ module.exports = {
 			resolve(User.find({}, {"pseudo":1, "email":1, "gold":1, "totalGold":1, }))
 		})
 	},
+	getFilteredList: () => {
+		return new Promise((resolve, reject) => {
+			console.log('getFilteredList');
+			resolve(User.aggregate([
+			{"$project": {"_id":1, "pseudo":1, "email":1, "gold":1} },
+			{"$group": {"_id": "$_id", "pseudo": {"$first": "$pseudo"}, "gold": {"$avg": "$gold"}} },
+			{"$sort": {"gold":-1} }
+			]))
+		})
+	},
 	getItemById: (id) => {
 		console.log('getItemById : ' + id);
 		return new Promise((resolve, reject) => {			
@@ -56,15 +66,19 @@ module.exports = {
 			
 		})
 	},
-	updateItem: () => {
+	updateItem: (id, item) => {
 		return new Promise((resolve, reject) => {
-			console.log('updateItem');
-			resolve('updateI')
+			User.findByIdAndUpdate(id, item, function(err, result) {
+				if (err) {
+					reject(err)
+				};
+				resolve(result)})
+
+	
 		})
 	},
 	deleteItem: (id) => {
 		return new Promise((resolve, reject) => {
-			console.log('deleteItem' + id);
 			resolve(User.find({"email": id}).remove().exec())
 		})
 	}
