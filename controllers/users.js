@@ -9,6 +9,14 @@ module.exports = {
       res.status(500).send(error);
     })
   },
+  getFilteredList: (req, res, next) => {
+    userModel.getFilteredList().then((result) => {
+      res.send(result)
+    }).catch((error) => {
+      console.log(error);
+      res.status(500).send(error);
+    })
+  },
   getItemById: (req, res, next) => {
     userModel.getItemById(req.params.id).then((result) => {
       res.send(result)
@@ -34,7 +42,6 @@ module.exports = {
     })
   },
   addItem: (req, res, next) => {
-
     userModel.addItem(req.body).then((result) => {
       res.send(result)
     }).catch((error) => {
@@ -43,7 +50,7 @@ module.exports = {
     })
   },
   updateItem: (req, res, next) => {
-    userModel.updateItem().then((result) => {
+    userModel.updateItem(req.params.id, req.body).then((result) => {
       res.send(result)
     }).catch((error) => {
       console.log(error);
