@@ -28,18 +28,33 @@ module.exports = {
 
     addUser: (req, res, next) => {
         let item = req.body;
-        let salt = bcrypt.genSaltSync(10);
-        item.password = bcrypt.hashSync(item.password, salt);
 
-        userModel.addUser(item).then((result) => {
-            res.send(result)
-        }).catch((error) => {
-            console.log(error);
-            res.status(500).send(error);
-        })
+        bcrypt.hash(item.password, 10).then((hash) => {
+            item.password = hash;
+
+            userModel.addUser(item).then((result) => {
+                res.send(result)
+            }).catch((error) => {
+                console.log(error);
+                res.status(500).send(error);
+            })
+        });
     },
 
     updateUser: (req, res, next) => {
+        if (req.body.password) {
+            bcrypt.hash(item.password, 10).then((hash) => {
+                item.password = hash;
+
+                userModel.updateUser(item).then((result) => {
+                    res.send(result)
+                }).catch((error) => {
+                    console.log(error);
+                    res.status(500).send(error);
+                })
+            });
+            return;
+        }
         userModel.updateUser(req.params.id, req.body).then((result) => {
             res.send(result)
         }).catch((error) => {

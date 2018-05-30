@@ -13,16 +13,32 @@ module.exports = {
     getConnectedUser: (req, res, next) => {
 
         userModel.getUserByName(req.body.name).then(result => {
-            let salt = bcrypt.genSaltSync(10);
-            const encryptPw = bcrypt.hashSync(req.body.password, salt);
-            const bool = bcrypt.compareSync(req.body.password, encryptPw);
-            if (bool){
-                //console.log(token.serialize('hmackey'));
-                crypto.randomBytes(48, function(err, buffer) {
-                    res.send("token : " + buffer.toString('hex') + "\nOui c'est pas secure mais je règle ca après !");
+            console.log(result);
+
+            if (result.length > 0) {
+                let user = result[0];
+                let storedPassword = user.password;
+                let sendPassword = req.body.password;
+
+                console.log(storedPassword);
+                console.log(sendPassword);
+
+                bcrypt.compare(sendPassword, storedPassword).then((isSame) => {
+                    console.log("compare");
+                    if (isSame) {
+                        crypto.randomBytes(48, (err, buffer) => {
+                            if (err) {
+                                res.send(err);
+                            }
+                            res.send("token : " + buffer.toString('hex'));
+                        });
+                    } else {
+                        res.status(500).send("Email or password dismatch");
+                    }
                 });
+
             } else {
-                res.send("wrong_password")
+                res.status(500).send("Email or password dismatch")
             }
 
         }).catch((error) => {
